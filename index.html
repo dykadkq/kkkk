@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Тепло рядом</title>
   <style>
     :root{
@@ -92,6 +92,132 @@
       .brand p{font-size:20px}
       .reminder-item{align-items:flex-start;flex-direction:column}
     }
+
+    @media (max-width:700px){
+      body{padding-bottom:92px}
+      .container{width:min(100%, calc(100% - 16px))}
+      header{position:sticky}
+      .header-wrap{padding:12px 0}
+      .brand h1{font-size:28px}
+      .brand p{font-size:17px;line-height:1.3}
+      .nav{display:none}
+      main{padding:12px 0 20px}
+      section{padding:18px 14px;margin:12px 0;border-radius:22px}
+      h2{font-size:28px;line-height:1.2}
+      .lead{font-size:20px;line-height:1.4}
+      .badge{font-size:18px;padding:10px 14px}
+      .hero{gap:14px}
+      .hero h2{font-size:34px}
+      .hero p{font-size:21px;line-height:1.4}
+      .hero-art{padding:20px;border-radius:24px}
+      .hero-art .emoji{font-size:72px}
+      .hero-art p{font-size:20px}
+      .home-actions{gap:12px}
+      .big-btn{
+        min-height:110px;
+        padding:18px;
+        border-radius:20px;
+        font-size:22px;
+      }
+      .big-btn span{font-size:42px;margin-bottom:8px}
+      .card,.music-row,.exercise-row,.add-box{padding:16px;border-radius:20px}
+      .icon-big{font-size:48px}
+      .card h3{font-size:24px;line-height:1.25}
+      .card p,.music-row p,.exercise-row p{font-size:18px;line-height:1.45}
+      .music-row h4,.exercise-row h4{font-size:22px}
+      .exercise-row ol{font-size:18px;line-height:1.5;margin-left:18px}
+      .field-row{gap:10px}
+      input{
+        font-size:18px;
+        padding:16px;
+        min-height:52px;
+        border-radius:16px;
+      }
+      .nav a,.big-btn,.call-btn,.open-btn,.send-btn,.add-btn,.help-btn,.mini-btn,.small-btn{
+        min-height:52px;
+        font-size:18px;
+      }
+      .call-btn,.open-btn,.send-btn,.add-btn,.mini-btn{
+        padding:14px;
+        border-radius:16px;
+      }
+      .small-btn{
+        width:100%;
+        padding:12px 14px;
+      }
+      .help-btn{
+        min-height:120px;
+        font-size:34px;
+        border-radius:24px;
+        padding:18px;
+      }
+      .reminder-item{padding:14px;border-radius:18px}
+      .reminder-main{gap:12px}
+      .reminder-main .emoji{font-size:36px}
+      .reminder-main strong{font-size:22px;line-height:1.3}
+      .reminder-main span{font-size:17px}
+      .pill{font-size:16px;padding:8px 12px}
+      .msg{
+        max-width:94%;
+        font-size:18px;
+        padding:12px 14px;
+      }
+      .chat-box{
+        min-height:240px;
+        max-height:300px;
+        border-radius:18px;
+      }
+      .about-note{font-size:18px;line-height:1.5;padding:14px}
+      footer{font-size:16px;padding:8px 0 8px}
+      .mobile-bottom-nav{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:8px;
+        position:fixed;
+        left:10px;
+        right:10px;
+        bottom:10px;
+        z-index:30;
+        background:rgba(255,250,243,.98);
+        backdrop-filter:blur(10px);
+        border:1px solid var(--border);
+        box-shadow:var(--shadow);
+        border-radius:20px;
+        padding:8px;
+      }
+      .mobile-bottom-nav a{
+        text-decoration:none;
+        color:var(--text);
+        background:var(--green);
+        border-radius:14px;
+        min-height:56px;
+        font-size:13px;
+        font-weight:700;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:2px;
+        text-align:center;
+        padding:6px 4px;
+      }
+      .mobile-bottom-nav a span{
+        font-size:20px;
+        line-height:1;
+      }
+      .safe-bottom{
+        height:84px;
+      }
+      audio{width:100%}
+    }
+  
+    .mobile-bottom-nav{
+      display:none;
+    }
+    .safe-bottom{
+      height:0;
+    }
+
   </style>
 </head>
 <body>
@@ -313,7 +439,17 @@
     </div>
   </main>
 
+  
+  <nav class="mobile-bottom-nav" aria-label="Быстрая навигация">
+    <a href="#home"><span>🏠</span>Главная</a>
+    <a href="#call"><span>📞</span>Звонки</a>
+    <a href="#reminders"><span>⏰</span>Дела</a>
+    <a href="#help"><span>🆘</span>Помощь</a>
+  </nav>
+  <div class="safe-bottom"></div>
+
   <footer>Тепло рядом — уютный и безопасный сайт для пожилых людей</footer>
+
 
   <script>
     const defaultContacts = [
