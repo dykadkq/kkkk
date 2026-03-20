@@ -358,40 +358,41 @@
       </div>
     </section>
 
-    <section id="music">
-      <h2>Музыка</h2>
-      <p class="lead">Разделена по настроению и жанрам.</p>
-      <div class="grid2" style="margin-top:18px;">
-        <div class="music-row">
-          <h4>Спокойная музыка</h4>
-          <p>Очень спокойная, мягкая мелодия для отдыха и тишины.</p>
-          <audio controls style="width:100%;margin-top:12px;">
-            <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8f6d0a8b6.mp3" type="audio/mpeg">
-          </audio>
-        </div>
-        <div class="music-row">
-          <h4>Песни молодости</h4>
-          <p>Неспешная и уютная мелодия без резких переходов.</p>
-          <audio controls style="width:100%;margin-top:12px;">
-            <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946d7d167c.mp3" type="audio/mpeg">
-          </audio>
-        </div>
-        <div class="music-row">
-          <h4>Звуки природы</h4>
-          <p>Спокойный фон, который помогает расслабиться.</p>
-          <audio controls style="width:100%;margin-top:12px;">
-            <source src="https://cdn.pixabay.com/audio/2022/08/04/audio_2dde668d05.mp3" type="audio/mpeg">
-          </audio>
-        </div>
-        <div class="music-row">
-          <h4>Классика</h4>
-          <p>Тихая и плавная музыка для комфортного прослушивания.</p>
-          <audio controls style="width:100%;margin-top:12px;">
-            <source src="https://cdn.pixabay.com/audio/2022/05/16/audio_1808fbf07a.mp3" type="audio/mpeg">
-          </audio>
-        </div>
+    
+<section id="music">
+  <h2>Музыка</h2>
+  <p class="lead">Здесь можно подключать свою музыку и слушать её прямо на сайте.</p>
+
+  <div class="add-box">
+    <h3 style="font-size:30px;">Добавить свою музыку</h3>
+    <div class="field-row">
+      <input id="musicUpload" type="file" accept="audio/*" multiple />
+      <button class="add-btn" onclick="addMusicFiles()">Добавить музыку</button>
+    </div>
+    <div class="weather-note">Поддерживаются обычные аудиофайлы с устройства. Музыка сохраняется в браузере на этом устройстве.</div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px;">
+    <div class="music-row">
+      <h4>Плеер</h4>
+      <p id="nowPlayingText">Сейчас ничего не выбрано.</p>
+      <audio id="mainAudioPlayer" controls style="width:100%;margin-top:12px;"></audio>
+    </div>
+
+    <div class="music-row">
+      <h4>Управление</h4>
+      <p>Можно включать свою музыку, удалять треки и выбирать нужный файл.</p>
+      <div class="toggle-row" style="margin-top:12px;">
+        <button class="ghost-btn" onclick="playSelectedMusic()">▶️ Включить</button>
+        <button class="ghost-btn" onclick="pauseSelectedMusic()">⏸️ Пауза</button>
+        <button class="ghost-btn" onclick="stopSelectedMusic()">⏹️ Стоп</button>
       </div>
-    </section>
+    </div>
+  </div>
+
+  <div class="list" id="musicList"></div>
+</section>
+
 
     <section id="exercise">
       <h2>Лёгкие упражнения</h2>
@@ -546,6 +547,8 @@
     let contacts = loadData('teplo_contacts_v2', defaultContacts);
     let reminders = loadData('teplo_reminders_v2', defaultReminders);
     let gallery = loadData('teplo_gallery_v2', []);
+    let musicFiles = loadData('teplo_music_v2', []);
+    let currentMusicIndex = -1;
     let adminEnabled = loadData('teplo_admin_v2', false);
     let voiceReadEnabled = loadData('teplo_voice_read_v2', false);
     let highContrast = loadData('teplo_contrast_v2', false);
@@ -958,6 +961,7 @@
       }
       saveData('teplo_gallery_v2', gallery);
       renderGallery();
+    renderMusicList();
       input.value = '';
     }
     function renderGallery(){
@@ -968,6 +972,113 @@
         wrap.innerHTML = `<img src="${src}" alt="Семейное фото ${i+1}">`;
         el.appendChild(wrap);
       });
+    }
+
+
+    async function addMusicFiles(){
+      const input = document.getElementById('musicUpload');
+      if(!input.files.length) return;
+      for(const file of input.files){
+        const data = await fileToDataUrl(file);
+        musicFiles.push({
+          name: file.name,
+          type: file.type || 'audio/mpeg',
+          data
+        });
+      }
+      saveData('teplo_music_v2', musicFiles);
+      renderMusicList();
+      input.value = '';
+      speak('Музыка добавлена.');
+    }
+
+    function renderMusicList(){
+      const list = document.getElementById('musicList');
+      const player = document.getElementById('mainAudioPlayer');
+      const nowText = document.getElementById('nowPlayingText');
+      if(!list || !player || !nowText) return;
+
+      list.innerHTML = '';
+      if(!musicFiles.length){
+        const empty = document.createElement('div');
+        empty.className = 'music-row';
+        empty.innerHTML = '<h4>Пока нет своей музыки</h4><p>Добавьте аудиофайлы с телефона или компьютера.</p>';
+        list.appendChild(empty);
+        nowText.textContent = 'Сейчас ничего не выбрано.';
+        player.removeAttribute('src');
+        player.load();
+        currentMusicIndex = -1;
+        return;
+      }
+
+      musicFiles.forEach((track, index) => {
+        const row = document.createElement('div');
+        row.className = 'row-item';
+        row.innerHTML = `
+          <div class="reminder-main">
+            <div class="emoji">🎵</div>
+            <div>
+              <strong>${escapeHtml(track.name)}</strong>
+              <span>Личный аудиофайл</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="small-btn" onclick="selectMusic(${index})">Выбрать</button>
+            <button class="small-btn" onclick="deleteMusic(${index})">Удалить</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      if(currentMusicIndex >= 0 && musicFiles[currentMusicIndex]){
+        nowText.textContent = 'Сейчас выбрано: ' + musicFiles[currentMusicIndex].name;
+      } else {
+        nowText.textContent = 'Выберите трек из списка.';
+      }
+    }
+
+    function selectMusic(index){
+      const player = document.getElementById('mainAudioPlayer');
+      const nowText = document.getElementById('nowPlayingText');
+      const track = musicFiles[index];
+      if(!track) return;
+      currentMusicIndex = index;
+      player.src = track.data;
+      player.load();
+      nowText.textContent = 'Сейчас выбрано: ' + track.name;
+      speak('Выбран трек ' + track.name);
+    }
+
+    function playSelectedMusic(){
+      const player = document.getElementById('mainAudioPlayer');
+      if(currentMusicIndex < 0 && musicFiles.length){
+        selectMusic(0);
+      }
+      if(player.src) player.play();
+    }
+
+    function pauseSelectedMusic(){
+      const player = document.getElementById('mainAudioPlayer');
+      player.pause();
+    }
+
+    function stopSelectedMusic(){
+      const player = document.getElementById('mainAudioPlayer');
+      player.pause();
+      player.currentTime = 0;
+    }
+
+    function deleteMusic(index){
+      const wasCurrent = index === currentMusicIndex;
+      musicFiles.splice(index, 1);
+      saveData('teplo_music_v2', musicFiles);
+      if(wasCurrent){
+        currentMusicIndex = -1;
+      } else if(index < currentMusicIndex){
+        currentMusicIndex -= 1;
+      }
+      renderMusicList();
+      speak('Трек удалён.');
     }
 
     function newQuote(){ document.getElementById('quoteText').textContent = '“' + quotes[randomNumber(0, quotes.length-1)] + '”'; speak(document.getElementById('quoteText').textContent); }
@@ -1028,6 +1139,7 @@
     renderContacts();
     renderReminders();
     renderGallery();
+    renderMusicList();
     if(adminEnabled) document.getElementById('adminPanel').style.display = 'block';
     document.getElementById('voiceStatus').textContent = voiceReadEnabled ? 'Озвучка включена.' : 'Голосовые функции работают в поддерживаемых браузерах.';
     document.documentElement.style.fontSize = fontMode === 0 ? '100%' : fontMode === 1 ? '108%' : '118%';
@@ -1041,4 +1153,3 @@
   </script>
 </body>
 </html>
-
