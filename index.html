@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Тепло рядом</title>
+  <meta name="theme-color" content="#f7f1e7" />
   <style>
     :root{
       --bg:#f7f1e7;
@@ -12,6 +13,9 @@
       --green:#e3f1df;
       --beige:#f6ead5;
       --red:#e74d4d;
+      --pink:#fde8ef;
+      --lav:#ece8ff;
+      --gold:#fff1c7;
       --text:#3d3a36;
       --muted:#6b665f;
       --border:#eadfce;
@@ -21,203 +25,133 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
-    .container{width:min(1120px,calc(100% - 24px));margin:0 auto}
-    header{position:sticky;top:0;z-index:10;background:rgba(255,250,243,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--border)}
+    .container{width:min(1140px,calc(100% - 24px));margin:0 auto}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,250,243,.96);backdrop-filter:blur(8px);border-bottom:2px solid var(--border)}
     .header-wrap{display:flex;gap:18px;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap}
     .brand h1{margin:0;font-size:40px}
     .brand p{margin:6px 0 0;font-size:22px;color:var(--muted)}
-    .nav{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:10px}
-    .nav a,.big-btn,.call-btn,.open-btn,.send-btn,.add-btn,.help-btn,.mini-btn,.small-btn{
-      text-decoration:none;color:var(--text);border:none;cursor:pointer;font-size:24px;font-weight:700;border-radius:22px;transition:transform .15s ease;box-shadow:var(--shadow)
+    .nav{display:grid;grid-template-columns:repeat(7,minmax(110px,1fr));gap:10px}
+    .nav a,.btn,.big-btn,.call-btn,.open-btn,.send-btn,.add-btn,.help-btn,.mini-btn,.small-btn,.ghost-btn{
+      text-decoration:none;color:var(--text);border:none;cursor:pointer;font-size:22px;font-weight:700;border-radius:22px;transition:transform .15s ease, opacity .15s ease;box-shadow:var(--shadow)
     }
-    .nav a:hover,.big-btn:hover,.call-btn:hover,.open-btn:hover,.send-btn:hover,.add-btn:hover,.help-btn:hover,.mini-btn:hover,.small-btn:hover{transform:translateY(-1px) scale(1.01)}
-    .nav a{background:var(--green);padding:16px 18px;text-align:center}
+    .nav a:hover,.btn:hover,.big-btn:hover,.call-btn:hover,.open-btn:hover,.send-btn:hover,.add-btn:hover,.help-btn:hover,.mini-btn:hover,.small-btn:hover,.ghost-btn:hover{transform:translateY(-1px) scale(1.01)}
+    .nav a{background:var(--green);padding:14px 16px;text-align:center}
     main{padding:22px 0 40px}
     section{margin:18px 0;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
     h2{margin:0 0 10px;font-size:42px}
-    .lead{margin:0;font-size:28px;color:var(--muted)}
+    h3{margin:0}
+    .lead{margin:0;font-size:26px;color:var(--muted)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
-    .badge{display:inline-block;background:var(--green);padding:12px 18px;border-radius:999px;font-size:24px;font-weight:700;margin-bottom:12px}
-    .hero h2{font-size:54px;line-height:1.15;margin-bottom:12px}
-    .hero p{font-size:30px;margin:0}
-    .hero-art{background:var(--blue);border-radius:32px;padding:30px;text-align:center}
-    .hero-art .emoji{font-size:100px;margin-bottom:12px}
-    .hero-art p{font-size:28px;margin:8px 0}
+    .badge{display:inline-block;background:var(--green);padding:12px 18px;border-radius:999px;font-size:22px;font-weight:700;margin-bottom:12px}
+    .hero h2{font-size:52px;line-height:1.15;margin-bottom:12px}
+    .hero p{font-size:28px;margin:0}
+    .hero-art{background:var(--blue);border-radius:32px;padding:28px;text-align:center}
+    .hero-art .emoji{font-size:96px;margin-bottom:12px}
+    .hero-art p{font-size:26px;margin:8px 0}
     .home-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px}
     .big-btn{padding:26px;text-align:left;min-height:150px}
-    .big-btn span{display:block;font-size:56px;margin-bottom:12px}
+    .big-btn span{display:block;font-size:56px;margin-bottom:10px}
     .big-blue{background:var(--blue)} .big-green{background:var(--green)} .big-beige{background:var(--beige)} .big-red{background:#fde1e1}
-    .cards{display:grid;gap:16px}
-    .contacts,.activities,.games-grid,.exercise-grid{grid-template-columns:repeat(3,1fr)}
-    .card,.music-row,.exercise-row{background:white;border-radius:26px;padding:22px;box-shadow:var(--shadow)}
-    .icon-big{font-size:64px}
-    .card h3{margin:16px 0 10px;font-size:32px}
-    .card p,.music-row p,.exercise-row p{margin:0;font-size:24px;color:var(--muted)}
-    .call-btn,.open-btn,.send-btn,.add-btn,.mini-btn{margin-top:18px;width:100%;padding:18px;background:var(--blue)}
+    .card,.music-row,.exercise-row,.info-card{background:white;border-radius:26px;padding:22px;box-shadow:var(--shadow)}
+    .icon-big{font-size:58px}
+    .card h3{margin:14px 0 10px;font-size:30px}
+    .card p,.music-row p,.exercise-row p,.info-card p{margin:0;font-size:22px;color:var(--muted)}
+    .call-btn,.open-btn,.send-btn,.add-btn,.mini-btn,.btn{margin-top:16px;width:100%;padding:16px;background:var(--blue)}
     .open-btn{background:var(--beige)}
     .add-btn,.mini-btn{background:var(--green)}
-    .reminder-list,.music-list{display:grid;gap:14px;margin-top:18px}
-    .reminder-item{display:flex;justify-content:space-between;align-items:center;gap:20px;background:white;padding:18px 20px;border-radius:22px;box-shadow:var(--shadow)}
-    .reminder-main{display:flex;align-items:center;gap:18px}
-    .reminder-main .emoji{font-size:48px}
-    .reminder-main strong{display:block;font-size:30px}
-    .reminder-main span{display:block;font-size:22px;color:var(--muted)}
-    .pill{background:var(--green);padding:10px 16px;border-radius:999px;font-size:22px;font-weight:700;white-space:nowrap}
+    .ghost-btn{background:white;padding:14px 16px}
+    .list{display:grid;gap:14px;margin-top:18px}
+    .reminder-item,.row-item{display:flex;justify-content:space-between;align-items:center;gap:18px;background:white;padding:18px 20px;border-radius:22px;box-shadow:var(--shadow)}
+    .reminder-main{display:flex;align-items:center;gap:16px}
+    .reminder-main .emoji{font-size:42px}
+    .reminder-main strong{display:block;font-size:28px}
+    .reminder-main span{display:block;font-size:20px;color:var(--muted)}
+    .pill{background:var(--green);padding:10px 16px;border-radius:999px;font-size:20px;font-weight:700;white-space:nowrap}
     .add-box{margin-top:20px;background:white;border-radius:26px;padding:20px;box-shadow:var(--shadow)}
     .field-row{display:flex;gap:12px;margin-top:14px}
-    input{width:100%;padding:18px 20px;border:2px solid var(--border);border-radius:20px;font-size:24px;color:var(--text);outline:none;font-family:inherit;background:#fffefb}
+    input,select,textarea{width:100%;padding:16px 18px;border:2px solid var(--border);border-radius:18px;font-size:20px;color:var(--text);outline:none;font-family:inherit;background:#fffefb}
     .help-wrap{display:flex;justify-content:center;margin-top:22px}
-    .help-btn{width:min(100%,850px);min-height:190px;background:var(--red);color:white;font-size:54px;border-radius:34px;padding:30px}
-    .two-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .chat-box{background:white;border-radius:26px;padding:16px;min-height:320px;max-height:360px;overflow:auto;box-shadow:inset 0 0 0 2px #f1ebdf;margin-top:18px}
-    .msg{max-width:88%;padding:14px 16px;border-radius:20px;font-size:24px;margin:10px 0}
+    .help-btn{width:min(100%,850px);min-height:170px;background:var(--red);color:white;font-size:50px;border-radius:34px;padding:28px}
+    .chat-box{background:white;border-radius:24px;padding:16px;min-height:280px;max-height:340px;overflow:auto;box-shadow:inset 0 0 0 2px #f1ebdf;margin-top:18px}
+    .msg{max-width:88%;padding:14px 16px;border-radius:18px;font-size:20px;margin:10px 0}
     .assistant{background:var(--green)} .user{background:var(--blue);margin-left:auto}
-    .about-note{margin-top:18px;background:var(--blue);border-radius:22px;padding:18px;font-size:24px}
+    .about-note{margin-top:18px;background:var(--blue);border-radius:22px;padding:18px;font-size:22px}
     .danger{background:#fff2f2;border:2px solid #ffd6d6}
-    .small-btn{padding:12px 16px;font-size:20px;background:#ffe8e8;min-width:130px}
-    .score{font-size:24px;font-weight:700;margin-top:12px;color:var(--muted)}
-    .music-row h4,.exercise-row h4{margin:0 0 8px;font-size:28px}
-    .exercise-row ol{margin:10px 0 0 24px;font-size:22px}
+    .small-btn{padding:12px 16px;font-size:18px;background:#ffe8e8;min-width:120px}
+    .score{font-size:22px;font-weight:700;margin-top:12px;color:var(--muted)}
+    .music-row h4,.exercise-row h4{margin:0 0 8px;font-size:26px}
+    .exercise-row ol{margin:10px 0 0 24px;font-size:20px}
     .center{text-align:center}
-    footer{text-align:center;color:var(--muted);font-size:20px;padding:12px 0 28px}
-    @media (max-width:980px){
-      .nav{grid-template-columns:repeat(2,1fr)}
-      .hero,.two-cols,.contacts,.activities,.games-grid,.exercise-grid{grid-template-columns:1fr}
+    .mood-grid button{padding:18px;font-size:20px}
+    .today-box{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+    .today-stat{background:white;border-radius:22px;padding:18px;box-shadow:var(--shadow);text-align:center}
+    .today-stat .num{font-size:30px;font-weight:700}
+    .toggle-row{display:flex;gap:10px;flex-wrap:wrap}
+    .toggle-row button{padding:14px 18px}
+    .photo-preview{width:84px;height:84px;border-radius:20px;object-fit:cover;display:block;background:#eee}
+    .contact-top{display:flex;align-items:center;gap:14px}
+    .family-gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}
+    .quote-card{background:var(--gold)}
+    .quote-text{font-size:26px;font-weight:700}
+    .weather-note{font-size:18px;color:var(--muted);margin-top:10px}
+    .admin-badge{display:inline-block;background:var(--lav);padding:8px 12px;border-radius:999px;font-size:16px;font-weight:700}
+    .mobile-bottom-nav{display:none}
+    .safe-bottom{height:0}
+    footer{text-align:center;color:var(--muted);font-size:18px;padding:12px 0 28px}
+    @media (max-width:1020px){
+      .nav{grid-template-columns:repeat(3,1fr)}
+      .hero,.grid2,.grid3,.grid4,.today-box{grid-template-columns:1fr}
       .home-actions{grid-template-columns:1fr}
-      .field-row{flex-direction:column}
-      .hero h2{font-size:42px}
-      h2{font-size:34px}
-      .help-btn{font-size:40px;min-height:150px}
-      .brand h1{font-size:34px}
-      .brand p{font-size:20px}
-      .reminder-item{align-items:flex-start;flex-direction:column}
     }
-
     @media (max-width:700px){
-      body{padding-bottom:92px}
-      .container{width:min(100%, calc(100% - 16px))}
-      header{position:sticky}
+      body{padding-bottom:94px}
+      .container{width:min(100%,calc(100% - 16px))}
       .header-wrap{padding:12px 0}
       .brand h1{font-size:28px}
-      .brand p{font-size:17px;line-height:1.3}
+      .brand p{font-size:16px;line-height:1.3}
       .nav{display:none}
-      main{padding:12px 0 20px}
+      main{padding:12px 0 18px}
       section{padding:18px 14px;margin:12px 0;border-radius:22px}
       h2{font-size:28px;line-height:1.2}
-      .lead{font-size:20px;line-height:1.4}
-      .badge{font-size:18px;padding:10px 14px}
+      .lead{font-size:19px;line-height:1.4}
+      .badge{font-size:17px;padding:10px 14px}
       .hero{gap:14px}
       .hero h2{font-size:34px}
-      .hero p{font-size:21px;line-height:1.4}
+      .hero p{font-size:20px;line-height:1.4}
       .hero-art{padding:20px;border-radius:24px}
       .hero-art .emoji{font-size:72px}
-      .hero-art p{font-size:20px}
-      .home-actions{gap:12px}
-      .big-btn{
-        min-height:110px;
-        padding:18px;
-        border-radius:20px;
-        font-size:22px;
-      }
+      .hero-art p{font-size:19px}
+      .big-btn{min-height:108px;padding:18px;border-radius:20px;font-size:20px}
       .big-btn span{font-size:42px;margin-bottom:8px}
-      .card,.music-row,.exercise-row,.add-box{padding:16px;border-radius:20px}
-      .icon-big{font-size:48px}
-      .card h3{font-size:24px;line-height:1.25}
-      .card p,.music-row p,.exercise-row p{font-size:18px;line-height:1.45}
-      .music-row h4,.exercise-row h4{font-size:22px}
-      .exercise-row ol{font-size:18px;line-height:1.5;margin-left:18px}
-      .field-row{gap:10px}
-      input{
-        font-size:18px;
-        padding:16px;
-        min-height:52px;
-        border-radius:16px;
-      }
-      .nav a,.big-btn,.call-btn,.open-btn,.send-btn,.add-btn,.help-btn,.mini-btn,.small-btn{
-        min-height:52px;
-        font-size:18px;
-      }
-      .call-btn,.open-btn,.send-btn,.add-btn,.mini-btn{
-        padding:14px;
-        border-radius:16px;
-      }
-      .small-btn{
-        width:100%;
-        padding:12px 14px;
-      }
-      .help-btn{
-        min-height:120px;
-        font-size:34px;
-        border-radius:24px;
-        padding:18px;
-      }
-      .reminder-item{padding:14px;border-radius:18px}
-      .reminder-main{gap:12px}
-      .reminder-main .emoji{font-size:36px}
-      .reminder-main strong{font-size:22px;line-height:1.3}
+      .card,.music-row,.exercise-row,.info-card,.add-box{padding:16px;border-radius:20px}
+      .card h3{font-size:24px}
+      .card p,.music-row p,.exercise-row p,.info-card p{font-size:18px}
+      .field-row{flex-direction:column}
+      input,select,textarea{font-size:18px;min-height:52px;border-radius:16px}
+      .btn,.big-btn,.call-btn,.open-btn,.send-btn,.add-btn,.help-btn,.mini-btn,.small-btn,.ghost-btn{min-height:52px;font-size:18px}
+      .small-btn{width:100%}
+      .help-btn{min-height:120px;font-size:34px;border-radius:24px;padding:18px}
+      .row-item,.reminder-item{align-items:flex-start;flex-direction:column;padding:14px;border-radius:18px}
+      .reminder-main strong{font-size:22px}
       .reminder-main span{font-size:17px}
       .pill{font-size:16px;padding:8px 12px}
-      .msg{
-        max-width:94%;
-        font-size:18px;
-        padding:12px 14px;
-      }
-      .chat-box{
-        min-height:240px;
-        max-height:300px;
-        border-radius:18px;
-      }
+      .msg{max-width:94%;font-size:18px;padding:12px 14px}
+      .chat-box{min-height:220px;max-height:290px;border-radius:18px}
       .about-note{font-size:18px;line-height:1.5;padding:14px}
-      footer{font-size:16px;padding:8px 0 8px}
       .mobile-bottom-nav{
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:8px;
-        position:fixed;
-        left:10px;
-        right:10px;
-        bottom:10px;
-        z-index:30;
-        background:rgba(255,250,243,.98);
-        backdrop-filter:blur(10px);
-        border:1px solid var(--border);
-        box-shadow:var(--shadow);
-        border-radius:20px;
-        padding:8px;
+        display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:fixed;left:10px;right:10px;bottom:10px;z-index:40;
+        background:rgba(255,250,243,.98);backdrop-filter:blur(10px);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:20px;padding:8px
       }
       .mobile-bottom-nav a{
-        text-decoration:none;
-        color:var(--text);
-        background:var(--green);
-        border-radius:14px;
-        min-height:56px;
-        font-size:13px;
-        font-weight:700;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        gap:2px;
-        text-align:center;
-        padding:6px 4px;
+        text-decoration:none;color:var(--text);background:var(--green);border-radius:14px;min-height:56px;font-size:13px;font-weight:700;display:flex;
+        flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;padding:6px 4px
       }
-      .mobile-bottom-nav a span{
-        font-size:20px;
-        line-height:1;
-      }
-      .safe-bottom{
-        height:84px;
-      }
-      audio{width:100%}
+      .mobile-bottom-nav a span{font-size:20px;line-height:1}
+      .safe-bottom{height:84px}
     }
-  
-    .mobile-bottom-nav{
-      display:none;
-    }
-    .safe-bottom{
-      height:0;
-    }
-
   </style>
 </head>
 <body>
@@ -229,10 +163,11 @@
       </div>
       <nav class="nav">
         <a href="#home">Главная</a>
-        <a href="#call">Позвонить</a>
+        <a href="#today">Сегодня</a>
+        <a href="#call">Звонки</a>
         <a href="#reminders">Напоминания</a>
         <a href="#activities">Активности</a>
-        <a href="#games">Игры</a>
+        <a href="#mood">Настроение</a>
         <a href="#help">Помощь</a>
       </nav>
     </div>
@@ -251,72 +186,122 @@
             <a class="big-btn big-beige" href="#activities"><span>🎵</span>Активности</a>
             <a class="big-btn big-red" href="#help"><span>🆘</span>Экстренная помощь</a>
           </div>
+          <div class="toggle-row" style="margin-top:16px;">
+            <button class="ghost-btn" onclick="toggleVoiceRead()">🔊 Озвучка</button>
+            <button class="ghost-btn" onclick="startVoiceCommand()">🎤 Голос</button>
+            <button class="ghost-btn" onclick="cycleFontSize()">🔎 Размер текста</button>
+            <button class="ghost-btn" onclick="toggleContrast()">🌓 Контраст</button>
+          </div>
         </div>
         <div class="hero-art">
           <div class="emoji">🏡</div>
           <p><strong>Тёплый и спокойный помощник на каждый день</strong></p>
           <p>Крупный текст, большие кнопки и всё доступно в 1–2 клика.</p>
+          <div class="weather-note" id="voiceStatus">Голосовые функции работают в поддерживаемых браузерах.</div>
         </div>
+      </div>
+    </section>
+
+    <section id="today">
+      <h2>Сегодняшний день</h2>
+      <p class="lead">Одна простая карточка с самым важным на сегодня.</p>
+      <div class="today-box">
+        <div class="today-stat"><div class="num" id="todayDate">—</div><div>Дата</div></div>
+        <div class="today-stat"><div class="num" id="todayDay">—</div><div>День недели</div></div>
+        <div class="today-stat"><div class="num" id="todayNextReminder">—</div><div>Ближайшее дело</div></div>
+        <div class="today-stat"><div class="num" id="todayWeather">—</div><div>Погода</div></div>
+      </div>
+      <div class="add-box">
+        <h3 style="font-size:30px;">Погода</h3>
+        <div class="field-row">
+          <input id="cityInput" placeholder="Введите город, например Петропавл" />
+          <button class="add-btn" onclick="fetchWeather()">Узнать погоду</button>
+        </div>
+        <div class="weather-note" id="weatherNote">Погода загружается из интернета и работает, если есть подключение.</div>
       </div>
     </section>
 
     <section id="call">
       <h2>Позвонить близким</h2>
-      <p class="lead">Можно добавить реальные номера и звонить по ним.</p>
+      <p class="lead">Можно добавить реальные номера, фото и видеоссылки.</p>
       <div class="add-box">
-        <h3 style="margin:0;font-size:32px;">Добавить контакт</h3>
+        <h3 style="font-size:30px;">Добавить контакт</h3>
         <div class="field-row">
           <input id="contactName" type="text" placeholder="Например: Дочь — Алия" />
           <input id="contactPhone" type="tel" placeholder="Например: +7 700 123 45 67" />
-          <button class="add-btn" onclick="addContact()">＋ Добавить</button>
         </div>
+        <div class="field-row">
+          <input id="contactPhoto" type="file" accept="image/*" />
+          <input id="contactVideo" type="url" placeholder="Ссылка на видеозвонок (например WhatsApp/Meet)" />
+        </div>
+        <button class="add-btn" onclick="addContact()">＋ Добавить контакт</button>
       </div>
-      <div class="cards contacts" style="margin-top:18px;" id="contactsList"></div>
+      <div class="grid3" style="margin-top:18px;" id="contactsList"></div>
     </section>
 
     <section id="reminders">
       <h2>Напоминания</h2>
-      <p class="lead">Ваши важные дела на сегодня. Напоминания можно добавлять и удалять.</p>
-      <div class="reminder-list" id="reminderList"></div>
+      <p class="lead">Можно добавлять, удалять и включать уведомления.</p>
+      <div class="list" id="reminderList"></div>
       <div class="add-box">
-        <h3 style="margin:0;font-size:32px;">Добавить напоминание</h3>
+        <h3 style="font-size:30px;">Добавить напоминание</h3>
         <div class="field-row">
-          <input id="newReminder" type="text" placeholder="Например: позвонить дочери" />
-          <input id="newReminderTime" type="text" placeholder="Например: 18:00" />
-          <button class="add-btn" onclick="addReminder()">＋ Добавить</button>
+          <input id="newReminder" placeholder="Например: принять лекарства" />
+          <input id="newReminderTime" placeholder="Например: 18:00" />
+          <select id="newReminderNotify">
+            <option value="yes">С уведомлением</option>
+            <option value="no">Без уведомления</option>
+          </select>
+        </div>
+        <button class="add-btn" onclick="addReminder()">＋ Добавить</button>
+        <div class="toggle-row" style="margin-top:14px;">
+          <button class="ghost-btn" onclick="requestNotifications()">🔔 Разрешить уведомления</button>
+          <button class="ghost-btn" onclick="testNotification()">✅ Проверить уведомление</button>
         </div>
       </div>
     </section>
 
+    <section id="mood">
+      <h2>Моё настроение</h2>
+      <p class="lead">Выберите, как вы себя чувствуете, и сайт поможет.</p>
+      <div class="grid4 mood-grid" style="margin-top:18px;">
+        <button class="btn" onclick="setMood('хорошо')">😊 Хорошо</button>
+        <button class="btn" onclick="setMood('спокойно')">😌 Спокойно</button>
+        <button class="btn" onclick="setMood('грустно')">😔 Грустно</button>
+        <button class="btn" onclick="setMood('тревожно')">😟 Тревожно</button>
+      </div>
+      <div class="about-note" id="moodAdvice">Здесь появится поддержка и совет.</div>
+    </section>
+
     <section id="activities">
       <h2>Активности</h2>
-      <p class="lead">Простые занятия для хорошего настроения.</p>
-      <div class="cards activities" style="margin-top:18px;">
+      <p class="lead">Музыка, игры, упражнения и забота для души.</p>
+      <div class="grid3" style="margin-top:18px;">
         <div class="card">
           <div class="icon-big">🧩</div>
           <h3>Мини-игры</h3>
-          <p>Небольшие игры для памяти, внимания и настроения.</p>
-          <a class="open-btn center" href="#games">Открыть игры</a>
+          <p>Простые игры для памяти, внимания и хорошего настроения.</p>
+          <a class="open-btn center" href="#games">Открыть</a>
         </div>
         <div class="card">
           <div class="icon-big">🎵</div>
           <h3>Музыка</h3>
-          <p>Спокойная музыка для отдыха и приятного настроения.</p>
-          <a class="open-btn center" href="#music">Открыть музыку</a>
+          <p>Спокойные мелодии, песни молодости и звуки природы.</p>
+          <a class="open-btn center" href="#music">Открыть</a>
         </div>
         <div class="card">
           <div class="icon-big">🧘</div>
-          <h3>Лёгкие упражнения</h3>
-          <p>Мягкие движения для хорошего самочувствия.</p>
-          <a class="open-btn center" href="#exercise">Открыть упражнения</a>
+          <h3>Упражнения</h3>
+          <p>Мягкие движения без спешки и перегрузки.</p>
+          <a class="open-btn center" href="#exercise">Открыть</a>
         </div>
       </div>
     </section>
 
     <section id="games">
       <h2>Мини-игры</h2>
-      <p class="lead">Простые игры без сложных правил.</p>
-      <div class="games-grid cards" style="margin-top:18px;">
+      <p class="lead">Без сложных правил и мелкого текста.</p>
+      <div class="grid3" style="margin-top:18px;">
         <div class="card">
           <div class="icon-big">🎲</div>
           <h3>Угадай число</h3>
@@ -328,45 +313,81 @@
         <div class="card">
           <div class="icon-big">🧠</div>
           <h3>Тренировка памяти</h3>
-          <p>Запомните последовательность и повторите её.</p>
+          <p>Запомните числа и повторите их.</p>
           <button class="mini-btn" onclick="startMemoryGame()">Показать числа</button>
-          <input id="memoryInput" type="text" placeholder="Напишите числа через пробел" />
+          <input id="memoryInput" placeholder="Напишите числа через пробел" />
           <button class="mini-btn" onclick="checkMemory()">Проверить</button>
           <div class="score" id="memoryResult">Нажмите «Показать числа».</div>
         </div>
         <div class="card">
           <div class="icon-big">😊</div>
-          <h3>Хорошее настроение</h3>
-          <p>Нажмите кнопку и получите тёплую фразу.</p>
-          <button class="mini-btn" onclick="showWarmPhrase()">Показать фразу</button>
+          <h3>Тёплая фраза</h3>
+          <p>Получите добрую и поддерживающую мысль.</p>
+          <button class="mini-btn" onclick="showWarmPhrase()">Показать</button>
           <div class="score" id="warmPhrase">Здесь появится добрая фраза.</div>
+        </div>
+        <div class="card">
+          <div class="icon-big">🃏</div>
+          <h3>Найди пару</h3>
+          <p>Нажимайте на карточки и ищите одинаковые.</p>
+          <button class="mini-btn" onclick="startPairsGame()">Начать игру</button>
+          <div id="pairsGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;"></div>
+          <div class="score" id="pairsResult">Найдите все пары.</div>
+        </div>
+        <div class="card">
+          <div class="icon-big">🔤</div>
+          <h3>Собери слово</h3>
+          <p>Расставьте буквы по порядку.</p>
+          <div class="score" id="wordScramble">Слово: —</div>
+          <input id="wordInput" placeholder="Введите правильное слово" />
+          <button class="mini-btn" onclick="newWordGame()">Новое слово</button>
+          <button class="mini-btn" onclick="checkWordGame()">Проверить</button>
+          <div class="score" id="wordResult">Нажмите «Новое слово».</div>
+        </div>
+        <div class="card">
+          <div class="icon-big">❓</div>
+          <h3>Викторина</h3>
+          <p>Простой вопрос на общие темы.</p>
+          <div class="score" id="quizQuestion">Нажмите кнопку, чтобы получить вопрос.</div>
+          <div class="field-row">
+            <button class="mini-btn" onclick="loadQuiz()">Новый вопрос</button>
+          </div>
+          <div id="quizAnswers"></div>
+          <div class="score" id="quizResult">Ответ появится здесь.</div>
         </div>
       </div>
     </section>
 
     <section id="music">
       <h2>Музыка</h2>
-      <p class="lead">Несколько спокойных мелодий, которые можно включить прямо на сайте.</p>
-      <div class="music-list">
+      <p class="lead">Разделена по настроению и жанрам.</p>
+      <div class="grid2" style="margin-top:18px;">
         <div class="music-row">
-          <h4>Спокойная мелодия 1</h4>
-          <p>Мягкая фоновая музыка для отдыха.</p>
-          <audio controls style="width:100%; margin-top:12px;">
+          <h4>Спокойная музыка</h4>
+          <p>Мягкий фон для отдыха.</p>
+          <audio controls style="width:100%;margin-top:12px;">
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
           </audio>
         </div>
         <div class="music-row">
-          <h4>Спокойная мелодия 2</h4>
-          <p>Подойдёт для вечернего отдыха.</p>
-          <audio controls style="width:100%; margin-top:12px;">
+          <h4>Песни молодости</h4>
+          <p>Тёплая и знакомая атмосфера.</p>
+          <audio controls style="width:100%;margin-top:12px;">
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
           </audio>
         </div>
         <div class="music-row">
-          <h4>Спокойная мелодия 3</h4>
-          <p>Лёгкий фон для хорошего настроения.</p>
-          <audio controls style="width:100%; margin-top:12px;">
+          <h4>Звуки природы</h4>
+          <p>Для спокойствия и дыхания.</p>
+          <audio controls style="width:100%;margin-top:12px;">
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+        <div class="music-row">
+          <h4>Классика</h4>
+          <p>Неспешное и приятное звучание.</p>
+          <audio controls style="width:100%;margin-top:12px;">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
           </audio>
         </div>
       </div>
@@ -374,98 +395,146 @@
 
     <section id="exercise">
       <h2>Лёгкие упражнения</h2>
-      <p class="lead">Спокойные упражнения сидя или стоя без резких движений.</p>
-      <div class="exercise-grid cards" style="margin-top:18px;">
+      <p class="lead">Без резких движений, спокойно и мягко.</p>
+      <div class="grid3" style="margin-top:18px;">
         <div class="exercise-row">
           <h4>1. Дыхание</h4>
-          <p>Помогает расслабиться и успокоиться.</p>
+          <p>Помогает расслабиться.</p>
           <ol>
-            <li>Сядьте удобно.</li>
-            <li>Медленно вдохните через нос на 4 счёта.</li>
-            <li>Задержите дыхание на 2 счёта.</li>
-            <li>Медленно выдохните на 4 счёта.</li>
-            <li>Повторите 5 раз.</li>
+            <li>Сядьте удобно.</li><li>Вдохните на 4 счёта.</li><li>Задержите дыхание на 2 счёта.</li><li>Выдохните на 4 счёта.</li><li>Повторите 5 раз.</li>
           </ol>
         </div>
         <div class="exercise-row">
           <h4>2. Плечи и шея</h4>
           <p>Лёгкая разминка верхней части тела.</p>
           <ol>
-            <li>Поднимите плечи вверх.</li>
-            <li>Медленно опустите их вниз.</li>
-            <li>Сделайте 5 кругов плечами назад.</li>
-            <li>Осторожно наклоните голову вправо и влево.</li>
+            <li>Поднимите плечи вверх.</li><li>Медленно опустите вниз.</li><li>Сделайте 5 кругов назад.</li><li>Осторожно наклоните голову в стороны.</li>
           </ol>
         </div>
         <div class="exercise-row">
           <h4>3. Руки и кисти</h4>
           <p>Простые движения для суставов.</p>
           <ol>
-            <li>Сожмите и разожмите кулаки 10 раз.</li>
-            <li>Покрутите кистями по кругу.</li>
-            <li>Потянитесь руками вперёд и вверх.</li>
+            <li>Сожмите и разожмите кулаки 10 раз.</li><li>Покрутите кистями.</li><li>Потянитесь руками вперёд и вверх.</li>
           </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="family">
+      <h2>Галерея семьи</h2>
+      <p class="lead">Тёплые фотографии рядом.</p>
+      <div class="add-box">
+        <div class="field-row">
+          <input id="galleryUpload" type="file" accept="image/*" multiple />
+          <button class="add-btn" onclick="addGalleryPhotos()">Добавить фото</button>
+        </div>
+      </div>
+      <div class="grid4 family-gallery" style="margin-top:18px;" id="familyGallery"></div>
+    </section>
+
+    <section id="support">
+      <h2>Добрые слова и цитата дня</h2>
+      <p class="lead">Небольшой тёплый уголок поддержки.</p>
+      <div class="grid2" style="margin-top:18px;">
+        <div class="info-card quote-card">
+          <div class="quote-text" id="quoteText">“Сегодня хороший день, чтобы улыбнуться.”</div>
+          <button class="mini-btn" onclick="newQuote()">Новая цитата</button>
+        </div>
+        <div class="info-card">
+          <div class="quote-text" id="prayerText">Пусть сегодняшний день принесёт спокойствие, тепло и добрые встречи.</div>
+          <button class="mini-btn" onclick="newPrayer()">Добрые слова</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin">
+      <h2>Режим для родных и сотрудников</h2>
+      <p class="lead">Скрытый доступ для изменения важных данных.</p>
+      <div class="add-box">
+        <span class="admin-badge">Код по умолчанию: 1234</span>
+        <div class="field-row">
+          <input id="adminCodeInput" type="password" placeholder="Введите код" />
+          <button class="add-btn" onclick="toggleAdmin()">Открыть режим</button>
+        </div>
+        <div id="adminPanel" style="display:none;margin-top:14px;">
+          <div class="about-note">Режим администратора включён. Теперь можно редактировать контакты и напоминания прямо на сайте.</div>
         </div>
       </div>
     </section>
 
     <section id="help" class="danger">
       <h2>Экстренная помощь</h2>
-      <p class="lead">Если вам нужна срочная помощь, нажмите кнопку ниже.</p>
+      <p class="lead">Сначала будет подтверждение, чтобы избежать случайного нажатия.</p>
       <div class="help-wrap">
-        <button class="help-btn" onclick="emergencyHelp()">🆘 Вызвать помощь</button>
+        <button class="help-btn" onclick="confirmEmergency()">🆘 Вызвать помощь</button>
       </div>
     </section>
 
-    <div class="two-cols">
+    <div class="grid2">
       <section>
         <h2>ИИ-помощник</h2>
-        <p class="lead">Можно написать простой вопрос.</p>
+        <p class="lead">Можно написать или сказать простой вопрос.</p>
         <div class="chat-box" id="chatBox">
-          <div class="msg assistant">Здравствуйте! Я ваш помощник. Напишите, что вам нужно: позвонить, посмотреть напоминания, поиграть, включить музыку или вызвать помощь.</div>
+          <div class="msg assistant">Здравствуйте! Я ваш помощник. Напишите или скажите, что вам нужно: позвонить, посмотреть напоминания, поиграть, включить музыку, сделать упражнения или вызвать помощь.</div>
         </div>
         <div class="field-row">
-          <input id="chatInput" type="text" placeholder="Например: хочу позвонить дочери" />
+          <input id="chatInput" placeholder="Например: хочу позвонить дочери" />
           <button class="send-btn" onclick="sendMessage()">Отправить</button>
         </div>
       </section>
-
       <section id="about">
         <h2>О проекте</h2>
-        <p class="lead">«Тепло рядом» — это простой и добрый сайт, который помогает пожилым людям чувствовать заботу, общаться с близкими и легче справляться с повседневной жизнью.</p>
+        <p class="lead">«Тепло рядом» — простой и добрый сайт, который помогает пожилым людям чувствовать заботу, общаться с близкими и легче справляться с повседневной жизнью.</p>
         <div class="about-note">Здесь нет сложных меню, мелкого текста и лишних действий. Всё сделано так, чтобы человек мог быстро найти нужную функцию и чувствовать себя спокойно и уверенно.</div>
         <div style="font-size:72px;text-align:center;margin-top:20px;">💛🌿☁️</div>
       </section>
     </div>
+
+    <div class="safe-bottom"></div>
   </main>
 
-  
   <nav class="mobile-bottom-nav" aria-label="Быстрая навигация">
     <a href="#home"><span>🏠</span>Главная</a>
+    <a href="#today"><span>☀️</span>Сегодня</a>
     <a href="#call"><span>📞</span>Звонки</a>
-    <a href="#reminders"><span>⏰</span>Дела</a>
     <a href="#help"><span>🆘</span>Помощь</a>
   </nav>
-  <div class="safe-bottom"></div>
 
   <footer>Тепло рядом — уютный и безопасный сайт для пожилых людей</footer>
 
-
   <script>
     const defaultContacts = [
-      { name: 'Дочь — Алия', phone: '+77001234567', icon: '👩' },
-      { name: 'Сын — Марат', phone: '+77015552020', icon: '👨' },
-      { name: 'Внуки', phone: '+77778881122', icon: '🧒' }
+      { name:'Дочь — Алия', phone:'+77001234567', icon:'👩', photo:'', video:'' },
+      { name:'Сын — Марат', phone:'+77015552020', icon:'👨', photo:'', video:'' },
+      { name:'Внуки', phone:'+77778881122', icon:'🧒', photo:'', video:'' }
     ];
     const defaultReminders = [
-      { text: 'Принять лекарства', time: '09:00', icon: '💊' },
-      { text: 'Выпить воды', time: '11:00', icon: '💧' },
-      { text: 'Прогулка', time: '16:00', icon: '🚶' }
+      { text:'Принять лекарства', time:'09:00', icon:'💊', notify:true, done:false },
+      { text:'Выпить воды', time:'11:00', icon:'💧', notify:true, done:false },
+      { text:'Прогулка', time:'16:00', icon:'🚶', notify:false, done:false }
     ];
-    let contacts = loadData('teplo_contacts', defaultContacts);
-    let reminders = loadData('teplo_reminders', defaultReminders);
-    let secretNumber = randomNumber(1, 10);
-    let memorySequence = [];
+    const quotes = [
+      'Сегодня хороший день, чтобы улыбнуться.',
+      'Тёплые слова иногда лечат лучше тишины.',
+      'Каждый новый день приносит маленькую надежду.',
+      'Спокойствие начинается с глубокого вдоха.',
+      'Даже маленькая радость делает день светлее.'
+    ];
+    const prayers = [
+      'Пусть сегодняшний день принесёт спокойствие, тепло и добрые встречи.',
+      'Пусть в доме будет мир, а в сердце — тишина и свет.',
+      'Пусть рядом всегда будут добрые люди и забота.',
+      'Пусть день пройдёт мягко, спокойно и безопасно.',
+      'Пусть силы, здоровье и надежда остаются рядом.'
+    ];
+    const quizItems = [
+      {q:'Как называется столица Казахстана?', a:['Алматы','Астана','Шымкент'], c:1},
+      {q:'Сколько дней в неделе?', a:['5','7','9'], c:1},
+      {q:'Что полезно пить каждый день?', a:['Воду','Газировку','Очень много кофе'], c:0},
+      {q:'Какой сезон идёт после зимы?', a:['Лето','Весна','Осень'], c:1}
+    ];
+    const wordItems = ['ТЕПЛО','МУЗЫКА','ЗАБОТА','СЕМЬЯ','РАДОСТЬ'];
     const warmPhrases = [
       'Вы молодец. Сегодня всё получится 💛',
       'Вы не одни. Рядом есть забота и тепло 🌿',
@@ -474,6 +543,21 @@
       'У вас всё хорошо получается, продолжайте в том же духе 💫'
     ];
 
+    let contacts = loadData('teplo_contacts_v2', defaultContacts);
+    let reminders = loadData('teplo_reminders_v2', defaultReminders);
+    let gallery = loadData('teplo_gallery_v2', []);
+    let adminEnabled = loadData('teplo_admin_v2', false);
+    let voiceReadEnabled = loadData('teplo_voice_read_v2', false);
+    let highContrast = loadData('teplo_contrast_v2', false);
+    let fontMode = loadData('teplo_font_mode_v2', 0);
+    let secretNumber = randomNumber(1, 10);
+    let memorySequence = [];
+    let pairsState = [];
+    let wordAnswer = '';
+    let lastReminderNotified = loadData('teplo_notified_v2', {});
+    const synth = window.speechSynthesis;
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
     function loadData(key, fallback){
       try{
         const value = localStorage.getItem(key);
@@ -481,54 +565,187 @@
       }catch(e){ return fallback; }
     }
     function saveData(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
-    function randomNumber(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
-    function escapeHtml(str){
-      return str.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
-    }
+    function randomNumber(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
+    function escapeHtml(str){ return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;'); }
     function contactIconByName(name){
       const t = name.toLowerCase();
-      if(t.includes('дочь') || t.includes('мама') || t.includes('сест')) return '👩';
-      if(t.includes('сын') || t.includes('пап') || t.includes('брат')) return '👨';
+      if(t.includes('дочь')||t.includes('мама')||t.includes('сест')) return '👩';
+      if(t.includes('сын')||t.includes('пап')||t.includes('брат')) return '👨';
       if(t.includes('вну')) return '🧒';
       return '☎️';
     }
     function formatDisplayPhone(phone){
-      return phone.replace(/(\+?\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+      const p = phone.replace(/[^\d+]/g,'');
+      return p.replace(/(\+?\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+    }
+    function speak(text){
+      if(!voiceReadEnabled || !('speechSynthesis' in window)) return;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ru-RU';
+      synth.speak(u);
+    }
+    function toggleVoiceRead(){
+      voiceReadEnabled = !voiceReadEnabled;
+      saveData('teplo_voice_read_v2', voiceReadEnabled);
+      const txt = voiceReadEnabled ? 'Озвучка включена.' : 'Озвучка выключена.';
+      document.getElementById('voiceStatus').textContent = txt;
+      if(voiceReadEnabled) speak(txt);
+    }
+    function cycleFontSize(){
+      fontMode = (fontMode + 1) % 3;
+      saveData('teplo_font_mode_v2', fontMode);
+      document.documentElement.style.fontSize = fontMode === 0 ? '100%' : fontMode === 1 ? '108%' : '118%';
+      speak('Размер текста изменён.');
+    }
+    function toggleContrast(){
+      highContrast = !highContrast;
+      saveData('teplo_contrast_v2', highContrast);
+      document.body.style.filter = highContrast ? 'contrast(1.12) saturate(1.02)' : '';
+      speak(highContrast ? 'Повышенный контраст включён.' : 'Повышенный контраст выключен.');
+    }
+    function startVoiceCommand(){
+      if(!Recognition){
+        alert('В этом браузере голосовые команды недоступны.');
+        return;
+      }
+      const rec = new Recognition();
+      rec.lang = 'ru-RU';
+      rec.start();
+      document.getElementById('voiceStatus').textContent = 'Слушаю...';
+      rec.onresult = (e)=>{
+        const text = e.results[0][0].transcript;
+        document.getElementById('voiceStatus').textContent = 'Вы сказали: ' + text;
+        handleVoiceCommand(text.toLowerCase());
+      };
+      rec.onerror = ()=> document.getElementById('voiceStatus').textContent = 'Не удалось распознать речь.';
+    }
+    function handleVoiceCommand(text){
+      if(text.includes('позвони')){
+        location.hash = '#call';
+        speak('Открываю раздел звонков.');
+        return;
+      }
+      if(text.includes('напомин')){
+        location.hash = '#reminders';
+        speak('Открываю напоминания.');
+        return;
+      }
+      if(text.includes('помощ')){
+        location.hash = '#help';
+        speak('Открываю помощь.');
+        return;
+      }
+      if(text.includes('музык')){
+        location.hash = '#music';
+        speak('Открываю музыку.');
+        return;
+      }
+      if(text.includes('упраж')){
+        location.hash = '#exercise';
+        speak('Открываю упражнения.');
+        return;
+      }
+      speak('Команда получена.');
+    }
+
+    function updateToday(){
+      const now = new Date();
+      const dayNames = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+      document.getElementById('todayDate').textContent = now.toLocaleDateString('ru-RU');
+      document.getElementById('todayDay').textContent = dayNames[now.getDay()];
+      const next = reminders.find(r => !r.done) || reminders[0];
+      document.getElementById('todayNextReminder').textContent = next ? next.time : 'Нет';
+    }
+
+    async function fetchWeather(){
+      const city = document.getElementById('cityInput').value.trim();
+      if(!city) return;
+      const note = document.getElementById('weatherNote');
+      note.textContent = 'Загрузка погоды...';
+      try{
+        const geo = await fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(city) + '&count=1&language=ru&format=json');
+        const geoData = await geo.json();
+        if(!geoData.results || !geoData.results.length){
+          note.textContent = 'Город не найден.';
+          return;
+        }
+        const place = geoData.results[0];
+        const w = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,weather_code&timezone=auto`);
+        const wData = await w.json();
+        const temp = Math.round(wData.current.temperature_2m);
+        const text = `${temp}°C`;
+        document.getElementById('todayWeather').textContent = text;
+        note.textContent = `${place.name}: ${text}`;
+      }catch(e){
+        note.textContent = 'Не удалось загрузить погоду.';
+      }
     }
 
     function renderContacts(){
       const list = document.getElementById('contactsList');
       list.innerHTML = '';
       contacts.forEach((contact, index) => {
+        const photoPart = contact.photo
+          ? `<img class="photo-preview" src="${contact.photo}" alt="${escapeHtml(contact.name)}">`
+          : `<div class="photo-preview" style="display:flex;align-items:center;justify-content:center;font-size:36px;">${contact.icon || '☎️'}</div>`;
+        const videoBtn = contact.video ? `<a class="open-btn center" href="${contact.video}" target="_blank" rel="noopener">🎥 Видеозвонок</a>` : '';
+        const editBtn = adminEnabled ? `<button class="small-btn" onclick="editContact(${index})">Редактировать</button>` : '';
+        const deleteBtn = adminEnabled ? `<button class="small-btn" onclick="deleteContact(${index})">Удалить</button>` : '';
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <div class="icon-big">${contact.icon || '☎️'}</div>
-          <h3>${escapeHtml(contact.name)}</h3>
-          <p>${escapeHtml(formatDisplayPhone(contact.phone))}</p>
+          <div class="contact-top">${photoPart}<div><h3>${escapeHtml(contact.name)}</h3><p>${escapeHtml(formatDisplayPhone(contact.phone))}</p></div></div>
           <button class="call-btn" onclick="callContact('${contact.phone}')">📞 Позвонить</button>
-          <button class="small-btn" onclick="deleteContact(${index})">Удалить</button>
+          ${videoBtn}
+          ${editBtn}
+          ${deleteBtn}
         `;
         list.appendChild(card);
       });
     }
 
-    function addContact(){
+    function fileToDataUrl(file){
+      return new Promise((resolve,reject)=>{
+        const reader = new FileReader();
+        reader.onload = ()=> resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function addContact(){
       const nameInput = document.getElementById('contactName');
       const phoneInput = document.getElementById('contactPhone');
+      const photoInput = document.getElementById('contactPhoto');
+      const videoInput = document.getElementById('contactVideo');
       const name = nameInput.value.trim();
-      const phone = phoneInput.value.replace(/[^\d+]/g, '');
+      const phone = phoneInput.value.replace(/[^\d+]/g,'');
       if(!name || !phone){ alert('Пожалуйста, введите имя и номер.'); return; }
-      contacts.push({ name, phone, icon: contactIconByName(name) });
-      saveData('teplo_contacts', contacts);
+      let photo = '';
+      if(photoInput.files[0]) photo = await fileToDataUrl(photoInput.files[0]);
+      contacts.push({name, phone, icon:contactIconByName(name), photo, video:videoInput.value.trim()});
+      saveData('teplo_contacts_v2', contacts);
       renderContacts();
-      nameInput.value = '';
-      phoneInput.value = '';
+      nameInput.value=''; phoneInput.value=''; photoInput.value=''; videoInput.value='';
+      speak('Контакт добавлен.');
+    }
+
+    function editContact(index){
+      const c = contacts[index];
+      const name = prompt('Имя контакта', c.name);
+      if(name === null) return;
+      const phone = prompt('Номер телефона', c.phone);
+      if(phone === null) return;
+      const video = prompt('Ссылка на видеозвонок', c.video || '');
+      contacts[index] = {...c, name, phone, video};
+      saveData('teplo_contacts_v2', contacts);
+      renderContacts();
     }
 
     function deleteContact(index){
-      contacts.splice(index, 1);
-      saveData('teplo_contacts', contacts);
+      contacts.splice(index,1);
+      saveData('teplo_contacts_v2', contacts);
       renderContacts();
     }
 
@@ -537,85 +754,253 @@
     function renderReminders(){
       const list = document.getElementById('reminderList');
       list.innerHTML = '';
-      reminders.forEach((item, index) => {
+      reminders.forEach((item,index)=>{
+        const editBtn = adminEnabled ? `<button class="small-btn" onclick="editReminder(${index})">Редактировать</button>` : '';
+        const deleteBtn = adminEnabled ? `<button class="small-btn" onclick="deleteReminder(${index})">Удалить</button>` : '';
+        const doneLabel = item.done ? 'Сделано' : 'Важно';
+        const doneBtn = `<button class="small-btn" onclick="toggleReminderDone(${index})">${item.done ? 'Вернуть' : 'Готово'}</button>`;
         const row = document.createElement('div');
         row.className = 'reminder-item';
         row.innerHTML = `
           <div class="reminder-main">
             <div class="emoji">${item.icon || '📝'}</div>
-            <div><strong>${escapeHtml(item.text)}</strong><span>${escapeHtml(item.time || 'Сегодня')}</span></div>
+            <div><strong>${escapeHtml(item.text)}</strong><span>${escapeHtml(item.time || 'Сегодня')} ${item.notify ? '• 🔔' : ''}</span></div>
           </div>
-          <div style="display:flex; gap:10px; align-items:center;">
-            <div class="pill">Важно</div>
-            <button class="small-btn" onclick="deleteReminder(${index})">Удалить</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <div class="pill">${doneLabel}</div>
+            ${doneBtn}
+            ${editBtn}
+            ${deleteBtn}
           </div>
         `;
         list.appendChild(row);
       });
+      updateToday();
     }
 
     function addReminder(){
       const textInput = document.getElementById('newReminder');
       const timeInput = document.getElementById('newReminderTime');
+      const notifyInput = document.getElementById('newReminderNotify');
       const text = textInput.value.trim();
       const time = timeInput.value.trim() || 'Сегодня';
       if(!text) return;
-      reminders.push({ text, time, icon: '📝' });
-      saveData('teplo_reminders', reminders);
+      reminders.push({text,time,icon:'📝',notify:notifyInput.value==='yes',done:false});
+      saveData('teplo_reminders_v2', reminders);
       renderReminders();
-      textInput.value = '';
-      timeInput.value = '';
+      textInput.value=''; timeInput.value='';
+      speak('Напоминание добавлено.');
     }
-
+    function editReminder(index){
+      const r = reminders[index];
+      const text = prompt('Текст напоминания', r.text);
+      if(text === null) return;
+      const time = prompt('Время', r.time);
+      if(time === null) return;
+      reminders[index] = {...r, text, time};
+      saveData('teplo_reminders_v2', reminders);
+      renderReminders();
+    }
     function deleteReminder(index){
-      reminders.splice(index, 1);
-      saveData('teplo_reminders', reminders);
+      reminders.splice(index,1);
+      saveData('teplo_reminders_v2', reminders);
+      renderReminders();
+    }
+    function toggleReminderDone(index){
+      reminders[index].done = !reminders[index].done;
+      saveData('teplo_reminders_v2', reminders);
       renderReminders();
     }
 
-    function emergencyHelp(){ alert('Сигнал о помощи отправлен сотрудникам.'); }
+    async function requestNotifications(){
+      if(!('Notification' in window)){ alert('Уведомления не поддерживаются в этом браузере.'); return; }
+      const p = await Notification.requestPermission();
+      alert(p === 'granted' ? 'Уведомления разрешены.' : 'Уведомления не разрешены.');
+    }
+    function testNotification(){
+      if(Notification.permission === 'granted'){
+        new Notification('Тепло рядом', { body:'Это тестовое напоминание 💛' });
+      } else {
+        alert('Сначала разрешите уведомления.');
+      }
+    }
+    function checkReminderNotifications(){
+      const now = new Date();
+      const current = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+      reminders.forEach((r, i)=>{
+        if(r.notify && !r.done && r.time === current){
+          const key = r.text + '_' + r.time + '_' + now.toLocaleDateString('ru-RU');
+          if(!lastReminderNotified[key]){
+            if(Notification.permission === 'granted') new Notification('Напоминание', { body:r.text });
+            speak('Напоминание: ' + r.text);
+            lastReminderNotified[key] = true;
+            saveData('teplo_notified_v2', lastReminderNotified);
+          }
+        }
+      });
+    }
+
+    function setMood(mood){
+      const el = document.getElementById('moodAdvice');
+      if(mood === 'хорошо') el.textContent = 'Как классно 💛 Можно включить любимую музыку или посмотреть семейные фото.';
+      if(mood === 'спокойно') el.textContent = 'Отличное состояние. Попробуйте дыхание, спокойную музыку или добрую цитату.';
+      if(mood === 'грустно') el.textContent = 'Можно позвонить близким, открыть галерею семьи или включить тёплую музыку.';
+      if(mood === 'тревожно') el.textContent = 'Сделайте дыхательное упражнение и включите спокойную мелодию. Я рядом.';
+      speak(el.textContent);
+    }
 
     function checkGuess(){
-      const input = document.getElementById('guessInput');
-      const value = Number(input.value);
+      const value = Number(document.getElementById('guessInput').value);
       const result = document.getElementById('guessResult');
       if(!value){ result.textContent = 'Введите число от 1 до 10.'; return; }
-      if(value === secretNumber){ result.textContent = 'Верно! Вы угадали 🎉'; secretNumber = randomNumber(1, 10); }
-      else if(value < secretNumber){ result.textContent = 'Немного больше.'; }
-      else{ result.textContent = 'Немного меньше.'; }
+      if(value === secretNumber){ result.textContent = 'Верно! Вы угадали 🎉'; secretNumber = randomNumber(1,10); }
+      else if(value < secretNumber) result.textContent = 'Немного больше.';
+      else result.textContent = 'Немного меньше.';
     }
 
     function startMemoryGame(){
       memorySequence = [randomNumber(1,9), randomNumber(1,9), randomNumber(1,9)];
       document.getElementById('memoryResult').textContent = 'Запомните: ' + memorySequence.join(' ');
-      setTimeout(() => { document.getElementById('memoryResult').textContent = 'Теперь введите числа по памяти.'; }, 2500);
+      setTimeout(()=> document.getElementById('memoryResult').textContent = 'Теперь введите числа по памяти.', 2500);
     }
-
     function checkMemory(){
-      const input = document.getElementById('memoryInput').value.trim().replace(/\s+/g, ' ');
+      const input = document.getElementById('memoryInput').value.trim().replace(/\s+/g,' ');
       const result = document.getElementById('memoryResult');
       if(!memorySequence.length){ result.textContent = 'Сначала нажмите «Показать числа».'; return; }
-      if(input === memorySequence.join(' ')){ result.textContent = 'Отлично! Память супер ✨'; }
-      else{ result.textContent = 'Почти. Правильный ответ: ' + memorySequence.join(' '); }
+      result.textContent = input === memorySequence.join(' ') ? 'Отлично! Память супер ✨' : 'Почти. Правильный ответ: ' + memorySequence.join(' ');
       document.getElementById('memoryInput').value = '';
       memorySequence = [];
     }
-
     function showWarmPhrase(){
-      const phrase = warmPhrases[randomNumber(0, warmPhrases.length - 1)];
-      document.getElementById('warmPhrase').textContent = phrase;
+      document.getElementById('warmPhrase').textContent = warmPhrases[randomNumber(0,warmPhrases.length-1)];
+    }
+
+    function startPairsGame(){
+      const values = ['🌿','🌿','☀️','☀️','💛','💛','🎵','🎵'];
+      pairsState = values.sort(()=> Math.random()-0.5).map(v=>({value:v, open:false, found:false}));
+      renderPairsGame();
+      document.getElementById('pairsResult').textContent = 'Найдите все пары.';
+    }
+    function renderPairsGame(){
+      const grid = document.getElementById('pairsGrid');
+      grid.innerHTML = '';
+      pairsState.forEach((item, index)=>{
+        const btn = document.createElement('button');
+        btn.className = 'mini-btn';
+        btn.style.marginTop = '0';
+        btn.style.padding = '10px';
+        btn.textContent = item.open || item.found ? item.value : '❔';
+        btn.onclick = ()=> flipPair(index);
+        grid.appendChild(btn);
+      });
+    }
+    function flipPair(index){
+      const openNow = pairsState.filter(x=>x.open && !x.found);
+      if(openNow.length >= 2 || pairsState[index].found) return;
+      pairsState[index].open = true;
+      renderPairsGame();
+      const opened = pairsState.map((x,i)=>({x,i})).filter(o=>o.x.open && !o.x.found);
+      if(opened.length === 2){
+        const [a,b] = opened;
+        if(a.x.value === b.x.value){
+          pairsState[a.i].found = true;
+          pairsState[b.i].found = true;
+          document.getElementById('pairsResult').textContent = 'Пара найдена!';
+          renderPairsGame();
+          if(pairsState.every(x=>x.found)) document.getElementById('pairsResult').textContent = 'Ура! Все пары найдены 🎉';
+        } else {
+          setTimeout(()=>{
+            pairsState[a.i].open = false;
+            pairsState[b.i].open = false;
+            renderPairsGame();
+          }, 800);
+        }
+      }
+    }
+
+    function newWordGame(){
+      wordAnswer = wordItems[randomNumber(0, wordItems.length - 1)];
+      const mixed = wordAnswer.split('').sort(()=> Math.random()-0.5).join('');
+      document.getElementById('wordScramble').textContent = 'Слово: ' + mixed;
+      document.getElementById('wordResult').textContent = 'Попробуйте собрать слово.';
+      document.getElementById('wordInput').value = '';
+    }
+    function checkWordGame(){
+      const v = document.getElementById('wordInput').value.trim().toUpperCase();
+      document.getElementById('wordResult').textContent = v === wordAnswer ? 'Верно! ✨' : 'Почти. Правильный ответ: ' + wordAnswer;
+    }
+
+    let currentQuiz = null;
+    function loadQuiz(){
+      currentQuiz = quizItems[randomNumber(0, quizItems.length - 1)];
+      document.getElementById('quizQuestion').textContent = currentQuiz.q;
+      const answers = document.getElementById('quizAnswers');
+      answers.innerHTML = '';
+      currentQuiz.a.forEach((ans, i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'mini-btn';
+        btn.textContent = ans;
+        btn.onclick = ()=> answerQuiz(i);
+        answers.appendChild(btn);
+      });
+      document.getElementById('quizResult').textContent = 'Выберите ответ.';
+    }
+    function answerQuiz(i){
+      document.getElementById('quizResult').textContent = i === currentQuiz.c ? 'Правильно! 🎉' : 'Немного не так.';
+    }
+
+    async function addGalleryPhotos(){
+      const input = document.getElementById('galleryUpload');
+      if(!input.files.length) return;
+      for(const file of input.files){
+        const data = await fileToDataUrl(file);
+        gallery.push(data);
+      }
+      saveData('teplo_gallery_v2', gallery);
+      renderGallery();
+      input.value = '';
+    }
+    function renderGallery(){
+      const el = document.getElementById('familyGallery');
+      el.innerHTML = '';
+      gallery.forEach((src, i)=>{
+        const wrap = document.createElement('div');
+        wrap.innerHTML = `<img src="${src}" alt="Семейное фото ${i+1}">`;
+        el.appendChild(wrap);
+      });
+    }
+
+    function newQuote(){ document.getElementById('quoteText').textContent = '“' + quotes[randomNumber(0, quotes.length-1)] + '”'; speak(document.getElementById('quoteText').textContent); }
+    function newPrayer(){ document.getElementById('prayerText').textContent = prayers[randomNumber(0, prayers.length-1)]; speak(document.getElementById('prayerText').textContent); }
+
+    function toggleAdmin(){
+      const code = document.getElementById('adminCodeInput').value.trim();
+      if(code !== '1234'){ alert('Неверный код.'); return; }
+      adminEnabled = !adminEnabled;
+      saveData('teplo_admin_v2', adminEnabled);
+      document.getElementById('adminPanel').style.display = adminEnabled ? 'block' : 'none';
+      renderContacts();
+      renderReminders();
+    }
+
+    function confirmEmergency(){
+      const ok = confirm('Вы точно хотите вызвать помощь?');
+      if(ok){
+        alert('Сигнал о помощи отправлен сотрудникам.');
+        speak('Сигнал о помощи отправлен.');
+      }
     }
 
     function assistantReply(text){
       const t = text.toLowerCase();
-      if(t.includes('лекар') || t.includes('таблет')) return 'Не забудьте принять лекарства вовремя. Можно открыть раздел «Напоминания» и проверить расписание.';
-      if(t.includes('позвон') || t.includes('сын') || t.includes('дочь') || t.includes('вну')) return 'Конечно. Откройте раздел «Позвонить близким» и нажмите кнопку звонка рядом с нужным номером.';
-      if(t.includes('игр')) return 'Можно открыть раздел «Мини-игры» и выбрать простую игру для памяти или настроения.';
+      if(t.includes('лекар')||t.includes('таблет')) return 'Не забудьте принять лекарства вовремя. Откройте раздел «Напоминания».';
+      if(t.includes('позвон')||t.includes('сын')||t.includes('дочь')||t.includes('вну')) return 'Откройте раздел «Позвонить близким» и нажмите кнопку звонка рядом с нужным номером.';
+      if(t.includes('игр')) return 'Откройте раздел «Мини-игры». Там есть память, пары, слова и викторина.';
       if(t.includes('музык')) return 'Откройте раздел «Музыка» и нажмите play на понравившейся мелодии.';
-      if(t.includes('упраж')) return 'В разделе «Лёгкие упражнения» есть простые шаги для дыхания, плеч и кистей.';
-      if(t.includes('скуч') || t.includes('одиноко')) return 'Я рядом 💛 Попробуйте включить музыку, поиграть или позвонить близким. Это может поднять настроение.';
-      if(t.includes('помощ') || t.includes('плохо') || t.includes('боль')) return 'Если вам срочно нужна помощь, нажмите красную кнопку в разделе «Экстренная помощь».';
-      return 'Здравствуйте 💛 Я помогу вам. Вы можете позвонить близким, посмотреть напоминания, поиграть, включить музыку, сделать упражнения или вызвать помощь.';
+      if(t.includes('упраж')) return 'В разделе «Лёгкие упражнения» есть дыхание, плечи и кисти.';
+      if(t.includes('груст')) return 'Можно посмотреть семейную галерею, включить музыку или позвонить близким.';
+      if(t.includes('помощ')||t.includes('плохо')||t.includes('боль')) return 'Если нужна срочная помощь, нажмите большую красную кнопку внизу страницы.';
+      return 'Я помогу вам. Можно позвонить близким, посмотреть напоминания, поиграть, включить музыку, сделать упражнения или вызвать помощь.';
     }
 
     function sendMessage(){
@@ -627,18 +1012,32 @@
       user.className = 'msg user';
       user.textContent = text;
       chat.appendChild(user);
+      const reply = assistantReply(text);
       const bot = document.createElement('div');
       bot.className = 'msg assistant';
-      bot.textContent = assistantReply(text);
+      bot.textContent = reply;
       chat.appendChild(bot);
       input.value = '';
       chat.scrollTop = chat.scrollHeight;
+      speak(reply);
     }
 
     document.getElementById('chatInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') sendMessage(); });
 
+    updateToday();
     renderContacts();
     renderReminders();
+    renderGallery();
+    if(adminEnabled) document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('voiceStatus').textContent = voiceReadEnabled ? 'Озвучка включена.' : 'Голосовые функции работают в поддерживаемых браузерах.';
+    document.documentElement.style.fontSize = fontMode === 0 ? '100%' : fontMode === 1 ? '108%' : '118%';
+    if(highContrast) document.body.style.filter = 'contrast(1.12) saturate(1.02)';
+    setInterval(checkReminderNotifications, 30000);
+    checkReminderNotifications();
+    newWordGame();
+    loadQuiz();
+    newQuote();
+    newPrayer();
   </script>
 </body>
 </html>
